@@ -21,6 +21,17 @@ void reverseLinkedList(element **head) {
     *head = first;
 }
 
+void reverseLinkedListRecursive(element **head, element *ele) {
+    element *curr = ele, *next = ele->next;
+    if(ele->next == NULL) {
+        *head = ele; 
+        return;
+    }
+    reverseLinkedListRecursive(head, next);
+    curr->next->next = curr;
+    curr->next = NULL;
+}
+
 element *makeNode(int d) {
     element *ele = (element *)malloc(sizeof(element));
     ele->data = d;
@@ -37,9 +48,10 @@ void printList(element * head) {
 main()
 {
     element *head = makeNode(1);
-    head->next = makeNode(2);
-    head->next->next = makeNode(3);
+    //head->next = makeNode(2);
+    //head->next->next = makeNode(3);
     printList(head);
-    reverseLinkedList(&head);
+    //reverseLinkedList(&head);
+    reverseLinkedListRecursive(&head, head);
     printList(head);
 }
