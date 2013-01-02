@@ -26,4 +26,7 @@ main()
 
 	int result = strlen("Hello World");
 	printf("%d\n", result);
+
+    printf("%d\n", 2 & 1);
+    printf("%d\n", 3 & 1);
 }
