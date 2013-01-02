@@ -58,6 +58,48 @@ void BFS(element *root) {
     }
 }
 
+void BFSZigZag(element *root) {
+    queue<element *>q;
+    q.push(root);
+    element *curr;
+    int level = 1;
+    int nCurrNode = 1, nNextLev = 0;
+    stack<int>s;
+    while(!q.empty()) {
+        curr = q.front();
+        if(curr) {
+            if(level % 2 == 1)
+                printf("%d ", curr->data);
+            else
+                s.push(curr->data);
+            q.pop();
+        }
+        
+        nCurrNode--;
+        if(curr->left) {
+            nNextLev++;
+            q.push(curr->left);
+        }
+        if(curr->right) {
+            nNextLev++;
+            q.push(curr->right);
+        }
+        if(nCurrNode <= 0) {
+            if(level % 2 == 0) {
+                while(!s.empty()) {
+                    printf("%d ", s.top());
+                    s.pop();
+                }
+                printf("\n");
+            } else
+                printf("\n");
+            nCurrNode = nNextLev;
+            nNextLev = 0;
+            level++;
+        }
+    }
+}
+
 element *makeNode(int d) {
     element *ele = (element *)malloc(sizeof(element));
     if(!ele)
@@ -77,10 +119,11 @@ main()
         root->right->left = makeNode(62);
         root->right->right = makeNode(80);
     }
-    printBSTRecursive(root);
-    printf("\n");
-    printBSTIterative(root);
-    printf("\n");
+    //printBSTRecursive(root);
+    //printf("\n");
+    //printBSTIterative(root);
+    //printf("\n");
     BFS(root);
     printf("\n");
+    BFSZigZag(root);
 }
