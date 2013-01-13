@@ -86,8 +86,10 @@ Search(const int * const items,
              * For ascending order list, here can be reached means that 
              * there is no exact match for the target value and thus we
              * can determine the result already. 
-             *
-             * If it is a descending order list, we just skip and wait 
+             * 
+             * If it is a descending order list, if the current element
+             * is the last one and the type is GreaterThan or 
+             * GreaterThanEquals we return this, otherwise we wait
              * to find the exact match first. 
              */
             if (NotEquals(ascending, 0))
@@ -105,6 +107,14 @@ Search(const int * const items,
                     search = NotFound;
                 break;
             }
+            else 
+            {
+                if (Equals(i, n_items - 1) && IsGreaterThan(type))
+                {
+                    AssignResult(search, FoundGreater,
+                                 *index, i);
+                }
+            }
         }
         /* The current element is less than the target key. */
         else 
@@ -114,8 +124,10 @@ Search(const int * const items,
              * there is no exact match for the target value and thus we 
              * can determine the result already. 
              *
-             * If it is an ascending order list, we just skip and wait
-             * to find the exact match first. 
+             * If it is an ascending order list, if the current element
+             * is the last one and the type is LessThan or LessThanEquals
+             * we return this, otherwise we  wait to find the exact match 
+             * first. 
              */
             if (Equals(ascending, 0))
             {
@@ -131,6 +143,14 @@ Search(const int * const items,
                 else 
                     search = NotFound;
                 break;
+            }
+            else 
+            {
+                if (Equals(i, n_items - 1) && IsLessThan(type))
+                {
+                    AssignResult(search, FoundLess,
+                                 *index, i);
+                }
             }
         }
     }
