@@ -32,6 +32,10 @@ static void testAscending()
     assert(index == -1);
 
     index = -1;
+    assert(Search(items, 8, 1, 17, Equals, &index) == NotFound);
+    assert(index == -1);
+
+    index = -1;
     assert(Search(items, 8, 1, 1, Equals, &index) == FoundExact);
     assert(index == 0);
 
@@ -62,6 +66,10 @@ static void testAscending()
     index = -1;
     assert(Search(items, 8, 1, 2, LessThanEquals, &index) == FoundLess);
     assert(index == 0);
+
+    index = -1;
+    assert(Search(items, 8, 1, 17, LessThanEquals, &index) == FoundLess);
+    assert(index == 7);
 
     index = -1;
     assert(Search(items, 8, 1, 17, GreaterThan, &index) == NotFound);
@@ -107,6 +115,10 @@ static void testDescending()
         items[i] = 2 * (8 - i) + 1;
     int index = -1;
     assert(Search(items, 8, 0, -1, Equals, &index) == NotFound);
+    assert(index == -1);
+
+    index = -1;
+    assert(Search(items, 8, 0, 1, Equals, &index) == NotFound);
     assert(index == -1);
 
     index = -1;
@@ -168,6 +180,10 @@ static void testDescending()
     index = -1;
     assert(Search(items, 8, 0, 10, GreaterThanEquals, &index) == FoundGreater);
     assert(index == 3);
+
+    index = -1;
+    assert(Search(items, 8, 0, 2, GreaterThanEquals, &index) == FoundGreater);
+    assert(index == 7);
 
     free(items);
 

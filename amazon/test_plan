@@ -1,0 +1,130 @@
+#-----------------------------------------------------------
+# Test plan for Search function
+# 
+# Author : huww06@gmail.com
+# Date   : 2013-01-12
+# 
+# Version: 1.0
+#-----------------------------------------------------------
+
+Section 1 - Introduction
+------------------------------
+We are going to do test for the Search method and in this document we will describe the test plan. Our final objective
+is to help automate the whole process of testing and ensure the function can work correctly for all the valid input. We
+will provide all (or at least most) test cases to show all kinds of different input. 
+
+
+Section 2 - Assumptions
+------------------------------
+Before we move on to the test cases, we need to be clear of the assumptions. In this test, we will suppose that the
+input to the Search function is valid. In other words, we have the following assumptions. 
+    The items are sorted.
+    Items will be not-NULL.
+    There are no duplicates items.
+    n_items will be > 0.
+    ascending should be non-zero if the array is sorted in ascending order.
+
+
+Section 3 - Test Plan
+------------------------------
+In this section, we are going to provide the test plan. We will provide some test cases and show the expected result
+manually. We find that the sorted array can be in either ascending or descending order, so we divide this section into
+two subsections. 
+
+Section 3.1 - Ascending Array
+---------------------------------------
+Given the input array [1, 3, 5, 7, 9, 11, 13, 15] (ascending order), we will do the following test. 
+
++-----+-------------------+--------------+-------+
+| Key | Type              | Returns      | Index |
++-----+-------------------+--------------+-------+
+| -1  | Equals            | NotFound     | -1    |
++-----+-------------------+--------------+-------+
+| 17  | Equals            | NotFound     | -1    |
++-----+-------------------+--------------+-------+
+|  1  | Equals            | FoundExact   | 0     |
++-----+-------------------+--------------+-------+
+|  0  | LessThan          | NotFound     | -1    |
++-----+-------------------+--------------+-------+
+|  1  | LessThan          | NotFound     | -1    |
++-----+-------------------+--------------+-------+
+|  2  | LessThan          | FoundLess    | 0     |
++-----+-------------------+--------------+-------+
+|  17 | LessThan          | FoundLess    | 7     |
++-----+-------------------+--------------+-------+
+|  0  | LessThanEquals    | NotFound     | -1    |
++-----+-------------------+--------------+-------+
+|  1  | LessThanEquals    | FoundExact   | 0     |
++-----+-------------------+--------------+-------+
+|  2  | LessThanEquals    | FoundLess    | 0     |
++-----+-------------------+--------------+-------+
+|  17 | LessThanEquals    | FoundLess    | 7     |
++-----+-------------------+--------------+-------+
+|  17 | GreaterThan       | NotFound     | -1    |
++-----+-------------------+--------------+-------+
+|  15 | GreaterThan       | NotFound     | -1    |
++-----+-------------------+--------------+-------+
+|  2  | GreaterThan       | FoundGreater | 1     |
++-----+-------------------+--------------+-------+
+|  3  | GreaterThan       | FoundGreater | 2     |
++-----+-------------------+--------------+-------+
+|  16 | GreaterThanEquals | NotFound     | -1    |
++-----+-------------------+--------------+-------+
+|  11 | GreaterThanEquals | FoundExact   | 5     |
++-----+-------------------+--------------+-------+
+|  10 | GreaterThanEquals | FoundGreater | 5     |
++-----+-------------------+--------------+-------+
+
+Section 3.2 - Descending Array
+---------------------------------------
+Given the input array [17, 15, 13, 11, 9, 7, 5, 3] (descending order), we will do the following test. 
+
++-----+-------------------+--------------+-------+
+| Key | Type              | Returns      | Index |
++-----+-------------------+--------------+-------+
+| -1  | Equals            | NotFound     | -1    |
++-----+-------------------+--------------+-------+
+|  1  | Equals            | NotFound     | -1    |
++-----+-------------------+--------------+-------+
+|  3  | Equals            | FoundExact   | 7     |
++-----+-------------------+--------------+-------+
+|  0  | LessThan          | NotFound     | -1    |
++-----+-------------------+--------------+-------+
+|  3  | LessThan          | NotFound     | -1    |
++-----+-------------------+--------------+-------+
+|  15 | LessThan          | FoundLess    | 2     |
++-----+-------------------+--------------+-------+
+|  14 | LessThan          | FoundLess    | 2     |
++-----+-------------------+--------------+-------+
+|  0  | LessThanEquals    | NotFound     | -1    |
++-----+-------------------+--------------+-------+
+|  3  | LessThanEquals    | FoundExact   | 7     |
++-----+-------------------+--------------+-------+
+|  4  | LessThanEquals    | FoundLess    | 7     |
++-----+-------------------+--------------+-------+
+|  18 | GreaterThan       | NotFound     | -1    |
++-----+-------------------+--------------+-------+
+|  17 | GreaterThan       | NotFound     | -1    |
++-----+-------------------+--------------+-------+
+|  2  | GreaterThan       | FoundGreater | 7     |
++-----+-------------------+--------------+-------+
+|  3  | GreaterThan       | FoundGreater | 6     |
++-----+-------------------+--------------+-------+
+|  18 | GreaterThanEquals | NotFound     | -1    |
++-----+-------------------+--------------+-------+
+|  11 | GreaterThanEquals | FoundExact   | 3     |
++-----+-------------------+--------------+-------+
+|  10 | GreaterThanEquals | FoundGreater | 3     |
++-----+-------------------+--------------+-------+
+|  2  | GreaterThanEquals | FoundGreater | 7     |
++-----+-------------------+--------------+-------+
+
+
+Section 4 - Usage
+------------------------------
+Execute the ``make'' command under the folder and it will compile correctly. 
+Then execute ``./search'' to run the tests. If all is ok, it should display:
+
+All tests for ascending array succeeded.
+All tests for descending array succeeded.
+All tests succeeded.
